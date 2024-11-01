@@ -1,0 +1,27 @@
+﻿ @model IEnumerable<LoaiHang>
+
+
+<ul class="nav">
+    @*
+    @foreach (var m in Model)
+    {
+    <li class="nav-item">
+    <a asp-controller="Learner" asp-action="Index"
+    asp-route-mid="@m.MajorID" class="nav-link">@m.MajorName</a>
+
+    </li>
+    }
+    *@
+    @*
+    Bat dong bo ssử dụng ajax
+
+    *@
+    @foreach (var m in Model)
+    {
+        <li class="nav-item" id="@m.MaLoaiHang">
+            <a class="nav-link " style="cursor: pointer">@m.TenLoaiHang</a>
+        </li>
+    }
+
+
+</ul>

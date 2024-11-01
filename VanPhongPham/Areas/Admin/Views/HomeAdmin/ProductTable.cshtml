@@ -1,0 +1,58 @@
+﻿
+@model IEnumerable<VanPhongPham.Models.SanPham>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm </th>
+            <th>Giá tối thiểu</th>
+            <th>Giá tối đa</th>
+            <th>Số lượng</th>
+            <th>Chi tiết </th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaToiThieu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaToiDa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuongTon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChiTiet)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaSanPham">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaSanPham">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaSanPham">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!--Thêm than nv-phan trang  -->
+<ul class="pagination">
+    @for (int i = 1; i <= ViewBag.pageNum; i++)
+    {
+        <li class="page-item" page="@i"
+        @(ViewBag.maloai != null ? "maloai=" + ViewBag.maloai : "")
+        @(ViewBag.TenTK != null ? "keyword=" + ViewBag.TenTK : "")>
+            <a class="page-link">@i</a>
+        </li>
+    }
+</ul>

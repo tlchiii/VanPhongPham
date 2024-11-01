@@ -1,0 +1,147 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "DanhMucSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<VanPhongPham.Models.SanPham>
+<div class="ms-2 mx-2">
+    
+
+    <h3>Sản Phẩm</h3>
+
+   @*  Phan loai theo san pham *@
+    @await Component.InvokeAsync("LoaiHang")
+
+    <!--Thêm form tìm kiếm -->
+    <form class="d-none d-md-inline-block form-check-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input id="keyword" class="form-control" name="keyword"
+                   type="text" placeholder="Search learner" />
+            <button id="btnSearch" class="btn btn-primary" type="button">
+                <i class="fas fa-earch"></i>
+            </button>
+        </div>
+    </form>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
+  
+
+    <div id="content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm </th>
+                    <th>Giá tối thiểu</th>
+                    <th>Giá tối đa</th>
+                    <th>Số lượng</th>
+                    <th>Chi tiết </th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaSanPham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenSanPham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GiaToiThieu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GiaToiDa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuongTon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChiTiet)
+                        </td>
+                        <td>
+                            <a asp-action="SuaSanPham" asp-route-masp="@item.MaSanPham">Edit</a> 
+                            <a asp-action="" asp-route-id="@item.MaSanPham">Details</a> 
+                            <a asp-action="XoaSanPham" asp-controller="HomeAdmin" asp-route-id="@item.MaSanPham">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!--Thêm than nv-phan trang  -->
+        <ul class="pagination">
+            @for (int i = 1; i <= ViewBag.pageNum; i++)
+            {
+                <li class="page-item" page="@i"
+                @(ViewBag.maloai != null ? "maloai='@ViewBag.maloai'" : "")
+                @(ViewBag.TenTK != null ? "keyword = '@ViewBag.TenTK'" : "")>
+                    <a class="page-link">@i</a>
+                </li>
+            }
+        </ul>
+    </div>
+    @* <a asp-action="Create" class="btn btn-primary">Create New Student</a> *@
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            
+            //sự kiện click vào so trang
+            $('body').on('click', 'li.page-item', function (e) {
+                var page = $(this).attr("page");
+                var mid = $(this).attr("maloai");
+                var keyword = $(this).attr("keyword");
+                var data = {
+                    maloai: mid, tentk: keyword, pageindex: page
+                };
+                $.ajax({
+                    url: "ProductFilter",
+                    data: data,
+                    success: function (response) {
+                        $("div#content").html(response);
+                    }
+                });
+            });
+
+            //theo ma loai
+            $(".nav li").click(function (e) {
+                var id = $(this).attr("id");
+                var data = { maloai: id };
+                $.ajax({
+                    url: "ProductFilter",
+                    data: data,
+                    success: function (response) {
+                       // alert("Ok");
+                        $("div#content").html(response);
+                    }
+                        
+                });
+
+            });
+
+            //tim kiem
+            $("button#btnSearch").click(function (e) {
+                var keyword = $("#keyword").val();
+                var data = { tentk: keyword };
+                $.ajax({
+                    url: "ProductFilter",
+                    data: data,
+                    success: function (response) {
+                        $("div#content").html(response);
+                    }
+                });
+
+            });
+        })
+        
+
+    </script>
+     
+}
+
+

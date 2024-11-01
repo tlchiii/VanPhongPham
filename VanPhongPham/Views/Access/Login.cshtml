@@ -1,0 +1,118 @@
+﻿@{
+
+    Layout = null;
+}
+
+@model NguoiDung
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>E Store - eCommerce HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <!--
+         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    -->
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="~/lib/slick/slick.css" rel="stylesheet">
+    <link href="~/lib/slick/slick-theme.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        .custom-box {
+            border: 2px solid #007bff; /* Màu viền */
+            border-radius: 5px; /* Bo góc */
+            background-color: #fff; /* Màu nền trắng */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng (tùy chọn) */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Start -->
+    <div class="login">
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="container-fluid d-flex justify-content-center">
+                <div class="row">
+                    <div class="custom-box pt-3">
+                        <h3 class="text-center">Login</h3>
+                        @using (Html.BeginForm("Login", "Access", FormMethod.Post))
+                        {
+                            <div class="col-md-12">
+                                <label>Username</label>
+                                @Html.TextBoxFor(x => x.TaiKhoan, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Username",
+                                        required = "required",
+                                        autofocus = "autofocus"
+                                    })
+                                @*<input class="form-control" type="text" placeholder="Username">*@
+                            </div>
+                            <div class="col-md-12">
+                                <label>Password</label>
+                                @Html.TextBoxFor(x => x.MatKhau, new
+                                    {
+                                        @class = "form-control",
+                                        type = "password",
+                                        placeholder = "Password",
+                                        required = "required",
+                                        id = "passwordInput"
+                                    })
+                                @*<input class="form-control" type="password" placeholder="Password">*@
+                            </div>
+                            <div class="col-md-12">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="showPassword">
+                                    <label class="custom-control-label" for="showPassword">Show password</label>
+                                </div>
+                            </div>
+                            <div class="col text-center">
+                                <button class="btn btn-primary mb-3" type="submit">Submit</button>
+                            </div>
+                            <div class="col text-center mb-3 font-weight-light">
+                                Don't you have an account? <a href="~/Home/Register" class="text-primary">Create</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('showPassword').addEventListener('change', function () {
+            var passwordInput = document.getElementById('passwordInput');
+            if (this.checked) {
+                passwordInput.type = 'text'; // Hiển thị mật khẩu
+            } else {
+                passwordInput.type = 'password'; // Ẩn mật khẩu
+            }
+        });
+    </script>
+    <!-- Login End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/slick/slick.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+
+
+</body>
+</html>

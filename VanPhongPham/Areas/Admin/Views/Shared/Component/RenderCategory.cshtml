@@ -1,0 +1,26 @@
+﻿
+
+<ul class="nav">
+    @*
+    @foreach (var m in Model)
+    {
+    <li class="nav-item">
+    <a asp-controller="Learner" asp-action="Index"
+    asp-route-mid="@m.MajorID" class="nav-link">@m.MajorName</a>
+
+    </li>
+    }
+    *@
+    @*
+    Bat dong bo ssử dụng ajax
+
+    *@
+    @foreach (var m in Model)
+    {
+        <li class="nav-item" id="@m.MajorID">
+            <a class="nav-link " style="cursor: pointer">@m.MajorName</a>
+        </li>
+    }
+
+
+</ul>
